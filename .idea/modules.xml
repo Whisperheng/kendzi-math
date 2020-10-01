@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/kendzi-math.iml" filepath="$PROJECT_DIR$/kendzi-math.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kendzi-math-geometry/kendzi-math-geometry.iml" filepath="$PROJECT_DIR$/kendzi-math-geometry/kendzi-math-geometry.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kendzi-math-geometry-debug/kendzi-math-geometry-debug.iml" filepath="$PROJECT_DIR$/kendzi-math-geometry-debug/kendzi-math-geometry-debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kendzi-straight-skeleton/kendzi-straight-skeleton.iml" filepath="$PROJECT_DIR$/kendzi-straight-skeleton/kendzi-straight-skeleton.iml" />
+    </modules>
+  </component>
+</project>

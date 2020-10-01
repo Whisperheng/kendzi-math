@@ -1061,6 +1061,7 @@ public class Skeleton {
 
         CircularList<Edge> edgesList = new CircularList<Edge>();
 
+        // 顺序链接每个点  首尾相连  AB , BC ,CD, DA
         int size = polygon.size();
         for (int i = 0; i < size; i++) {
             int j = (i + 1) % size;
@@ -1071,8 +1072,11 @@ public class Skeleton {
 
             Edge nextEdge = edge.next();
 
+            // 计算出两个边的中轴线 ， 假设两个线相交角度为n  ， bisector 与原两个边角度均为n/2
+            // 得到的结果为射线，非向量
             Ray2d bisector = calcBisector(edge.getEnd(), edge, nextEdge);
 
+            // 在原有边中间增加向量关系
             edge.setBisectorNext(bisector);
             nextEdge.setBisectorPrevious(bisector);
 
@@ -1086,6 +1090,7 @@ public class Skeleton {
 
             Edge nextEdge = edge.next();
 
+            // 使用vertex 记录范围数据 包含  节点 ，射线 ， 边 ， 顺时针next边
             Vertex vertex = new Vertex(edge.getEnd(), 0, edge.getBisectorNext(), edge, nextEdge);
 
             lav.addLast(vertex);
@@ -1309,7 +1314,7 @@ public class Skeleton {
         List<SplitCandidate> ret = new ArrayList<SplitCandidate>();
 
         for (Edge edgeEntry : edges) {
-
+            // 得到线性方程 Ax + By + C = 0
             LineLinear2d edge = edgeEntry.getLineLinear();
 
             // check if edge is behind bisector
@@ -1379,6 +1384,8 @@ public class Skeleton {
 
     protected static SplitCandidate calcCandidatePointForSplit(Vertex vertex, Edge edge) {
 
+        //求得边与 该顶点相关的两条边中 ，较为不平行的一个边
+        //TODO hank make
         Edge vertexEdge = choseLessParallelVertexEdge(vertex, edge);
         if (vertexEdge == null) {
             return null;
@@ -1432,15 +1439,23 @@ public class Skeleton {
         return null;
     }
 
+    /**
+     * 求得边与 该顶点相关的两条边中 ，较为不平行的一个边
+     * @param vertex
+     * @param edge
+     * @return
+     */
     private static Edge choseLessParallelVertexEdge(Vertex vertex, Edge edge) {
         Edge edgeA = vertex.previousEdge;
         Edge edgeB = vertex.nextEdge;
 
         Edge vertexEdge = edgeA;
 
+        // 求单位向量点积 获取投影长度 绝对值
         double edgeADot = Math.abs(edge.getNorm().dot(edgeA.getNorm()));
         double edgeBDot = Math.abs(edge.getNorm().dot(edgeB.getNorm()));
 
+        // 该情况代表  A B C D 在同一条直线上
         if (edgeADot + edgeBDot >= 2 - SPLIT_EPSILON) {
             // both lines are parallel to given edge
             return null;
@@ -1448,6 +1463,7 @@ public class Skeleton {
 
         if (edgeADot > edgeBDot) {
             /*
+             *这里总是求得投影长度最短----> 即两条线段相交角度稍大的一个 --> 较为不平行的
              * Simple check should be performed to exclude the case when one of
              * the line segments starting at V (vertex) is parallel to e_i
              * (edge) we always chose edge which is less parallel.

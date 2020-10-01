@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="kendzi-math-geometry" />
+        <module name="kendzi-straight-skeleton" />
+        <module name="kendzi-math-geometry-debug" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="kendzi-math" target="1.6" />
+      <module name="kendzi-math-geometry" target="1.6" />
+      <module name="kendzi-math-geometry-debug" target="1.6" />
+      <module name="kendzi-straight-skeleton" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
